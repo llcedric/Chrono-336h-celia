@@ -1,0 +1,123 @@
+<!<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chronomètre Record</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            padding: 20px 0;
+        }
+
+        #logo {
+            width: 300px;
+            height: auto;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 90%;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 10px;
+            background: #fafafa;
+        }
+
+        #phrases {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-top: 20px;
+            line-height: 1.4;
+            padding: 0 20px;
+        }
+
+        #timer {
+            font-size: 5rem;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        #adminBtn {
+            position: fixed;
+            bottom: 10px;
+            opacity: 0.35;
+            font-size: 0.9rem;
+            border: none;
+            background: none;
+        }
+
+        #adminPanel {
+            display: none;
+            position: fixed;
+            bottom: 50px;
+            right: 20px;
+            padding: 15px;
+            background: #f7f7f7;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+    </style>
+</head>
+<body>
+    <!-- LOGO -->
+    <img id="logo" src="1000758633.png" alt="360 your master I'histoire d'une nation by Chef Celia" />
+
+    <!-- PHRASES FOURNIES PAR L'UTILISATEUR -->
+    <div id="phrases">
+        <i>Guinness World Record - By Chef Célia</i><br>
+        <i>336H pour marquer l'histoire d'une nation</i>
+    </div>
+
+    <!-- CHRONOMÈTRE -->
+    <div id="timer">168h 00m 00s</div>
+
+    <!-- BOUTON ADMIN INVISIBLE POUR LES AUTRES -->
+    <button id="adminBtn" onclick="toggleAdmin()">Administration</button>
+
+    <!-- PANNEAU ADMIN -->
+    <div id="adminPanel">
+        <label>Heures: <input type="number" id="h" min="0"></label><br>
+        <label>Minutes: <input type="number" id="m" min="0" max="59"></label><br>
+        <label>Secondes: <input type="number" id="s" min="0" max="59"></label><br><br>
+        <button onclick="setTimer()">Mettre à jour</button>
+    </div>
+
+    <script>
+        let totalSeconds = 168 * 3600;
+
+        function startTimer() {
+            setInterval(() => {
+                totalSeconds++;
+                const h = Math.floor(totalSeconds / 3600);
+                const m = Math.floor((totalSeconds % 3600) / 60);
+                const s = totalSeconds % 60;
+                document.getElementById('timer').textContent = `${h}h ${m}m ${s}s`;
+            }, 1000);
+        }
+
+        function toggleAdmin() {
+            document.getElementById('adminPanel').style.display =
+                document.getElementById('adminPanel').style.display === 'block' ? 'none' : 'block';
+        }
+
+        function setTimer() {
+            const h = parseInt(document.getElementById('h').value) || 0;
+            const m = parseInt(document.getElementById('m').value) || 0;
+            const s = parseInt(document.getElementById('s').value) || 0;
+            totalSeconds = h * 3600 + m * 60 + s;
+        }
+
+        startTimer();
+    </script>
+</body>
+</html>
